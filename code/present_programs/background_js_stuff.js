@@ -56,8 +56,8 @@ window.onload = function() {
 	
 	function functional() {
 		if(pstRnd === 0) {
-			this.style.visibility = 'hidden';
-			getEle('roundPart').style.visibility = 'visible';	//打开环节显示
+			$(this).addClass("d-none").removeClass("d-flex");
+			$("#roundPart").removeClass("d-none").addClass("d-flex");	//打开环节显示
 			pstRnd++;
 			adjustRound();
 		}
@@ -79,19 +79,19 @@ window.onload = function() {
 	function adjustRound() {	//根据pstRnd 的大小来调节几个 btn 和 pstRnd 的 title
 		getEle('Round').textContent = roundTitle[pstRnd];	//环节名称
 		if (pstRnd > roundNumber) {	//环节都结束了
-			getEle('nextRound').style.visibility = 'hidden';
-			getEle('lastRound').style.visibility = 'hidden';
+			$("#nextRound").addClass("d-none").removeClass("d-flex");
+			$("#lastRound").addClass("d-none").removeClass("d-flex");
 			getEle('0Timer').textContent = '';
 			getEle('1Timer').textContent = '';
-			timerBtn[0].style.visibility = 'hidden';
-			timerBtn[1].style.visibility = 'hidden';
+			$(timerBtn[0]).addClass("d-none").removeClass("d-flex");
+			$(timerBtn[1]).addClass("d-none").removeClass("d-flex");
 		}
 		else if (pstRnd !== roundFreeDebate) {	//不是自由辩
 			let num = Round[pstRnd];
-			timerBtn[num ^ 1].style.visibility = 'hidden';	//非发言方
+			$(timerBtn[num ^ 1]).addClass("d-none").removeClass("d-flex");	//非发言方
 			getEle((num ^ 1) + 'Timer').textContent = '';	//清空
 			
-			timerBtn[num].style.visibility = 'visible';	//发言方
+			$(timerBtn[num]).removeClass("d-none").addClass("d-flex");	//发言方
 			timerBtn[num].textContent = 'Start';	//重置
 						
 			cnt[num] = Time[pstRnd] * beishu;	//设置该轮的时间
@@ -99,12 +99,12 @@ window.onload = function() {
 			outputTimer(num);	//顺便输出时间（此时是静止的）
 			
 			getEle('speakerInFreeDebate').textContent = '';
-			functionalBtn.style.visibility = 'hidden';	//以防万一
+			$(functionalBtn).addClass("d-none").removeClass("d-flex");	//以防万一
 		}
 		else {	//自由辩
-			functionalBtn.style.visibility = 'visible';
-			timerBtn[0].style.visibility = 'hidden';
-			timerBtn[1].style.visibility = 'hidden';	//隐藏and显示按钮
+			$(functionalBtn).removeClass("d-none").addClass("d-flex");
+			$(timerBtn[0]).addClass("d-none").removeClass("d-flex");
+			$(timerBtn[1]).addClass("d-none").removeClass("d-flex");	//隐藏and显示按钮
 			
 			getEle('speakerInFreeDebate').textContent = (firstSpeak === 1 ? '正' : '反') + '方先发言';
 			cnt[1] = Time[pstRnd] * beishu;
