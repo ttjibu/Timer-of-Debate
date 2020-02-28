@@ -1,0 +1,44 @@
+@charset "utf-8";
+body {
+	background-color: aqua;
+}
+.Title {
+	background-color: yellow;
+	text-align: center;
+	width: 300px;
+	margin: 0 auto;
+	
+	border-color:  black;
+	border: 1px solid ;
+  	border-radius: 1em;
+	
+	font-size: 2em;
+	
+/*	padding: 5px*/
+}
+
+header {
+	margin-top: 1px;
+	text-align: center;
+}
+
+/*
+.btn {
+	margin: 0 auto;
+	text-align: center;
+	float: right;
+	align-content: center;
+}
+*/
+
+.Positive {
+	float: left;
+	width: 300px;
+	height: 500px;
+}
+
+.Negative {
+	float: right;
+	width: 300px;
+	height: 500px;
+}

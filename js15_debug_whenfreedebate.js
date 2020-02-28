@@ -2,10 +2,10 @@ window.onload = function() {
 	//这一个const定义的常量都是由赛制决定的
 	const roundNumber = 7,		//总环节数
 		  roundFreeDebate = 5,	//自由辩环节
-		  firstSpeak = 0,	//自由辩时先发言方
+		  firstSpeak = 1,	//自由辩时先发言方
 		  Round = [-1, 1, 0, 0, 1, -1, 0, 1],//第几轮发言方的，1为正方，0为反方，-1为其他
-	 	  Time = [0, 120, 120, 120, 120, 180, 180, 180],	//该轮发言时限(秒)
-		  roundTitle = ['',				//环节内容
+	 	  Time = [0, 5, 5, 5, 5, 5, 10, 10],	//该轮发言时限(秒)
+		  RoundTitle = ['',				//环节内容
 					   'Round1:正一陈词',
 					   'Round2:反一质询正一',
 					   'Round3:反一陈词',
@@ -18,7 +18,7 @@ window.onload = function() {
 	const beishu = 1e2;
 	//beishu用于调节误差（'click'的时候重置Interval会有误差），beishu越大，误差越小（不要1e3，有bug）
 	
-	let timerBtn = [getEle('0Button'), getEle('1Button')],	//x方计时器按钮
+	let timerBtn = [getEle('0Btn'), getEle('1Btn')],	//x方计时器按钮
 		cnt = [],		//时间
 		flag = [];		//用于标记Interval
 	
@@ -56,8 +56,8 @@ window.onload = function() {
 	
 	function functional() {
 		if(pstRnd === 0) {
-			$(this).addClass("d-none").removeClass("d-flex");
-			$("#roundPart").removeClass("d-none").addClass("d-flex");	//打开环节显示
+			this.style.visibility = 'hidden';
+			getEle('roundPart').style.visibility = 'visible';	//打开环节显示
 			pstRnd++;
 			adjustRound();
 		}
@@ -77,21 +77,21 @@ window.onload = function() {
 	}
 	
 	function adjustRound() {	//根据pstRnd 的大小来调节几个 btn 和 pstRnd 的 title
-		getEle('Round').textContent = roundTitle[pstRnd];	//环节名称
+		getEle('Round').textContent = RoundTitle[pstRnd];	//环节名称
 		if (pstRnd > roundNumber) {	//环节都结束了
-			$("#nextRound").addClass("d-none").removeClass("d-flex");
-			$("#lastRound").addClass("d-none").removeClass("d-flex");
+			getEle('nextRound').style.visibility = 'hidden';
+			getEle('lastRound').style.visibility = 'hidden';
 			getEle('0Timer').textContent = '';
 			getEle('1Timer').textContent = '';
-			$(timerBtn[0]).addClass("d-none").removeClass("d-flex");
-			$(timerBtn[1]).addClass("d-none").removeClass("d-flex");
+			timerBtn[0].style.visibility = 'hidden';
+			timerBtn[1].style.visibility = 'hidden';
 		}
 		else if (pstRnd !== roundFreeDebate) {	//不是自由辩
 			let num = Round[pstRnd];
-			$(timerBtn[num ^ 1]).addClass("d-none").removeClass("d-flex");	//非发言方
+			timerBtn[num ^ 1].style.visibility = 'hidden';	//非发言方
 			getEle((num ^ 1) + 'Timer').textContent = '';	//清空
 			
-			$(timerBtn[num]).removeClass("d-none").addClass("d-flex");	//发言方
+			timerBtn[num].style.visibility = 'visible';	//发言方
 			timerBtn[num].textContent = 'Start';	//重置
 						
 			cnt[num] = Time[pstRnd] * beishu;	//设置该轮的时间
@@ -99,14 +99,14 @@ window.onload = function() {
 			outputTimer(num);	//顺便输出时间（此时是静止的）
 			
 			getEle('speakerInFreeDebate').textContent = '';
-			$(functionalBtn).addClass("d-none").removeClass("d-flex");	//以防万一
+			functionalBtn.style.visibility = 'hidden';	//以防万一
 		}
 		else {	//自由辩
-			$(functionalBtn).removeClass("d-none").addClass("d-flex");
-			$(timerBtn[0]).addClass("d-none").removeClass("d-flex");
-			$(timerBtn[1]).addClass("d-none").removeClass("d-flex");	//隐藏and显示按钮
+			functionalBtn.style.visibility = 'visible';
+			timerBtn[0].style.visibility = 'hidden';
+			timerBtn[1].style.visibility = 'hidden';	//隐藏and显示按钮
 			
-			getEle('speakerInFreeDebate').textContent = (firstSpeak === 1 ? '反' : '正') + '方先发言';
+			getEle('speakerInFreeDebate').textContent = (firstSpeak === 1 ? '正' : '反') + '方先发言';
 			cnt[1] = Time[pstRnd] * beishu;
 			cnt[0] = Time[pstRnd] * beishu;	//设置该轮的时间（双方都要）
 			outputTimer(0);
