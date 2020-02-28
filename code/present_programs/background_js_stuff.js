@@ -2,7 +2,7 @@ window.onload = function() {
 	//这一个const定义的常量都是由赛制决定的
 	const roundNumber = 7,		//总环节数
 		  roundFreeDebate = 5,	//自由辩环节
-		  firstSpeak = 1,	//自由辩时先发言方
+		  firstSpeak = 0,	//自由辩时先发言方
 		  Round = [-1, 1, 0, 0, 1, -1, 0, 1],//第几轮发言方的，1为正方，0为反方，-1为其他
 	 	  Time = [0, 120, 120, 120, 120, 180, 180, 180],	//该轮发言时限(秒)
 		  roundTitle = ['',				//环节内容
@@ -106,7 +106,7 @@ window.onload = function() {
 			$(timerBtn[0]).addClass("d-none").removeClass("d-flex");
 			$(timerBtn[1]).addClass("d-none").removeClass("d-flex");	//隐藏and显示按钮
 			
-			getEle('speakerInFreeDebate').textContent = (firstSpeak === 1 ? '正' : '反') + '方先发言';
+			getEle('speakerInFreeDebate').textContent = (firstSpeak === 1 ? '反' : '正') + '方先发言';
 			cnt[1] = Time[pstRnd] * beishu;
 			cnt[0] = Time[pstRnd] * beishu;	//设置该轮的时间（双方都要）
 			outputTimer(0);
