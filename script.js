@@ -1,3 +1,31 @@
+/*
+ * 函数，变量命名规则：
+ * 函数名，变量名中的每一个大写字母，都表示一个新的单词的开始，即与js自带函数的命名规则相同。
+ *
+ * let变量缩写意义：
+ * rnd -> round
+ * pst -> present
+ * tmr -> timer
+ * btn -> button
+ * cnt -> count
+ * spk -> speaker
+ *
+ * const常量：
+ * 1. 不使用缩写；
+ * 2. 除了beishu，其余const常量都由赛制决定
+ * 3. 除beishu以外，所有const常量名称中至少有一个大写字母
+ *
+ * 注意事项：
+ * 1. 程序中出现的1/0，除了有明显意义的之外，都分别表示正方和反方；
+ * 2. 重置cnt的时候要乘上beishu ；
+ * 3. setInterval的时候时间参数为 1e3 / beishu；
+ * 4. adjustRound一定要跟在pstRnd++/--后面；
+ * 5. 程序中有一个保留bug：比赛开始前，即未点击functionalBtn时，千万不要点击timerBtn!
+ */
+
+
+
+
 window.onload = function() {
 	//这一个const定义的常量都是由赛制决定的
 	const roundNumber = 7,		//总环节数
